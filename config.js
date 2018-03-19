@@ -15,5 +15,8 @@ var transactionExplorer = "http://blockexplorer.pw/{symbol}/?hash={id}#blockchai
 var themeCss = "themes/default-theme.css";
 
 var networkStat = [
-        ["npool.pw/marketcash", "http://ca.npool.pw:2230"]
+        ["npool.pw/marketcash", "http://ca.npool.pw:2230"],
+        ["mkt.4miner.me", "http://api-mkt.4miner.me:8118"],
+        ["fastpool.pw", "https://fastpool.pw:18119"],
+        ["mkt.ozminers.club", "https://mktapi.ozminers.club"]
 ];
