@@ -114,7 +114,7 @@
     <div class="col-md-4 stats marketRate">
         <h3 id="marketHeader">Market</h3>
         <div class="marketFooter">Updated: <span id="marketLastUpdated"></span></div>
-        <div class="marketFooter">Powered by <a href="https://www.cryptonator.com/">Cryptonator</a></div>
+        <div class="marketFooter">Powered by <a href="http://npool.pw/">npool.pw</a></div>
     </div>
 </div>
 
@@ -286,6 +286,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>#</th>
                 <th><i class="fa fa-gavel"></i> Worker</th>
                 <th><i class="fa fa-tachometer"></i> Hash Rate</th>
                 <th><i class="fa fa-clock-o"></i> Last Share Submitted</th>
@@ -418,7 +419,7 @@
         for (var i = 0; i < cryptonatorWidget.length; i++){
             (function(i){
                 cryptonatorWidget[i] = cryptonatorWidget[i].replace('{symbol}', lastStats.config.symbol.toLowerCase());
-                xhrMarketGets[cryptonatorWidget[i]] = $.get('https://api.cryptonator.com/api/ticker/' + cryptonatorWidget[i], function(data){
+                xhrMarketGets[cryptonatorWidget[i]] = $.get('https://price.npool.pw/' + cryptonatorWidget[i], function(data){
                     if(data.error) {
                         return;
                     }
@@ -436,7 +437,7 @@
                         if (price > 1) price = Math.round(price * 100) / 100;
                         else price = marketsData[f].ticker.price;
 
-                        $marketHeader.after('<div class="marketTicker">' + marketsData[f].ticker.base + ': <span>' + price + ' ' + marketsData[f].ticker.target + '</span></div>');
+                        $marketHeader.after('<div class="marketTicker"><a href="'+marketsData[f].ticker.market+'" target="_blank">' + marketsData[f].ticker.base + ': <span>' + price + ' ' + marketsData[f].ticker.target + '</span></a></div>');
                     }
                     $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
                 }, 'json');
@@ -487,14 +488,17 @@
         $('#workers_rows').empty();
 
         var $workersRows = $('#workers_rows');
+	var n=1;
         for(var worker in workerResults)
         {
             var row = document.createElement('tr');
-            row.innerHTML = '<td>'+ worker + '</td>' +
+            row.innerHTML = '<td>'+ n + '</td>' +
+                            '<td>'+ worker + '</td>' +
                             '<td>'+ workerResults[worker].lasthash + '</td>' +
                             '<td>'+ formatDate(workerResults[worker].lastsubmit) + '</td>';
 
             $workersRows.append(row);
+            n++;
         }
     }
 
